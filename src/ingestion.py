@@ -7,8 +7,12 @@ from src.database.client import PostgresClient
 load_dotenv()
 
 API_URL= os.getenv("API_URL")
+USER_AGENT=os.getenv("USER_AGENT")
 
-HEADERS = os.getenv("HEAEDERS")
+HEADERS = {
+    "User-Agent": USER_AGENT,
+    "Content-Type":"application/json"
+}
 
 INITIAL_PAYLOAD = {
     "city_ids": ["1"],
@@ -44,7 +48,7 @@ def run_harvester():
     # storing data in variable
     data = response.json()
     widgets = data.get("list_widgets", [])
-    print(f"✅ Received {len(widgets)} widgets.")
+    print(f"Received {len(widgets)} widgets.")
     
     # processig data
     count = 0
